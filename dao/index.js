@@ -105,7 +105,7 @@ const CADENA_CONEXION = /*process.env.DATABASE_URL ||*/
             allowNull : false
         },
         auto: {
-            type : DataTypes.BOOLEAN,
+            type : DataTypes.UUIDV4,
             allowNull : false
         }
     }, {
@@ -189,6 +189,12 @@ const CADENA_CONEXION = /*process.env.DATABASE_URL ||*/
     })
     tour.hasMany(usuario,{
         foreignKey : "id"
+    })
+    guia.belongsTo(vehiculo,{
+        foreignKey : "guia_id"
+    })
+    vehiculo.belongsTo(guia,{
+        foreignKey : "auto"
     })
 /*
 
