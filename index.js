@@ -45,34 +45,6 @@ app.post("/usuarios", async (req,resp) => {
         confirmar: "Registro exitoso"
     })
 })
-app.post("/guia", async (req,resp) => {
-    const dataRequest = req.body
-    const nombre = dataRequest.nombre
-    const apellido = dataRequest.apellido
-    const correo = dataRequest.correo
-    const cod_post= dataRequest.cod_post
-    const telefono = dataRequest.telefono
-    const ciudad = dataRequest.ciudad
-    const departamento = dataRequest.departamento
-    const direccion = dataRequest.direccion
-    const contrasena = dataRequest.contrasena
-
-    await guia.create({
-        nombre : nombre,
-        apellido : apellido,
-        correo : correo,
-        cod_post : cod_post,
-        telefono : telefono,
-        ciudad : ciudad,
-        departamento : departamento,
-        direccion : direccion,
-        contrasena : contrasena,
-    })
-
-    resp.send({
-        confirmar: "Registro exitoso"
-    })
-})
 
 app.post("/guia", async (req,resp) => {
     const dataRequest = req.body
@@ -124,6 +96,25 @@ app.post("/tour", async (req,resp) => {
     })
 })
 
+app.post("/vehiculo", async (req,resp) => {
+    const dataRequest = req.body
+    const color = dataRequest.color
+    const placa = dataRequest.placa
+    const tipo = dataRequest.tipo
+    const año = dataRequest.año
+    const guia_id = dataRequest.guia_id
+    await reporte.create({
+        color : color,
+        placa : placa,
+        tipo : tipo,
+        año : año,
+        guia_id : guia_id,
+    })  
+    resp.send({
+        confirmar: "Informacion del vehiculo enviada correctamente"
+    })
+})
+
 app.get("/usuarios", async (req, resp) => {
     const listausuario = await usuario.findAll()
     resp.send(listausuario)
@@ -132,4 +123,13 @@ app.get("/usuarios", async (req, resp) => {
 app.get("/guia", async (req, resp) => {
     const listaguia = await usuario.findAll()
     resp.send(listaguia)
+})
+
+app.get("/vehiculo", async (req, resp) => {
+    const listaguia = await usuario.findAll()
+    resp.send(listaguia)
+})
+
+app.listen(PUERTO, () => {
+    console.log(`Servidor web iniciado en puerto ${PUERTO}`)
 })
