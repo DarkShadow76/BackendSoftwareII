@@ -121,13 +121,29 @@ app.post("/zona", async (req,resp) => {
 })
 
 app.get("/turista", async (req, resp) => {
-    const listaTurista = await turista.findAll()
-    resp.send(listaTurista)
+    const id = req.query.id
+        if(id == undefined || id == "-1"){
+            const listaTuristas = await turista.findAll()
+            resp.send(listaTuristas)
+        }
+        else{
+            const turistasFiltrados = await turista.findAll({
+            where : {id : id}})
+            resp.send(turistasFiltrados)
+        }
 })
 
 app.get("/guia", async (req, resp) => {
-    const listaGuia = await guia.findAll()
-    resp.send(listaGuia)
+    const id = req.query.id
+        if(id == undefined || id == "-1"){
+            const listaGuias = await guia.findAll()
+            resp.send(listaGuias)
+        }
+        else{
+            const guiasFiltrados = await guia.findAll({
+            where : {id : id}})
+            resp.send(guiasFiltrados)
+        }
 })
 
 app.get("/vehiculo", async (req, resp) => {
