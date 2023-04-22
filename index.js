@@ -2,7 +2,7 @@ const express = require("express")
 const bodyParser = require("body-parser")
 const cors = require("cors")
 
-const data = require("./test_data") // importamos data de test
+//const data = require("./test_data") // importamos data de test
 const { usuario, producto , orden , orden_producto, pc_armado, pc_armado_producto, reporte, resena} = require("./dao")
 
 /*const PUERTO = process.env.PORT || 4445*/

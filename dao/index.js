@@ -4,7 +4,7 @@ const { Sequelize, DataTypes } = require("sequelize");
 
 
 const CADENA_CONEXION = /*process.env.DATABASE_URL ||*/
-    "postgres://postgres:postgres@localhost:5433/postgres"
+    "postgres://postgres:postgres@localhost:5432/postgres"
     const sequelize = new Sequelize(CADENA_CONEXION)
     /*const sequelize = new Sequelize(CADENA_CONEXION,{
         dialectOptions : {
@@ -15,49 +15,37 @@ const CADENA_CONEXION = /*process.env.DATABASE_URL ||*/
         }
     })*/
 
-    const usuario = sequelize.define("usuario", {
+    const turista = sequelize.define("turista", {
         id : {
             primaryKey : true,
             type : DataTypes.UUID,
             defaultValue : Sequelize.UUIDV4
         },
         nombre : {
-            type : DataTypes.STRING(200),
+            type : DataTypes.STRING(100),
             allowNull : false
         },
         apellido: {
-            type : DataTypes.STRING(200),
+            type : DataTypes.STRING(100),
             allowNull : true
         },  
         correo:{
-            type : DataTypes.STRING(200),
+            type : DataTypes.STRING(100),
             allowNull : false
         },
         contrasena:{
-            type: DataTypes.STRING(200),
+            type: DataTypes.STRING(100),
             allowNull : false
-        },
-        direccion: {
-            type : DataTypes.STRING(200),
-            allowNull : true
-        },
-        departamento: {
-            type : DataTypes.STRING(200),
-            allowNull : true
-        },
-        ciudad: {
-            type :  DataTypes.STRING(200),
-            allowNull : true
-        },
-        cod_post: {
-            type : DataTypes.STRING(200),
-            allowNull : true
         },
         telefono: {
-            type : DataTypes.INTEGER,
+            type : DataTypes.STRING(20),
             allowNull : false
+        },
+        id_tour: {
+            foreignKey: true,
+            type : DataTypes.UUID,
+            defaultValue : Sequelize.UUIDV4
         }
-
     }, {
         timestamps : false,
         freezeTableName : true
@@ -69,44 +57,33 @@ const CADENA_CONEXION = /*process.env.DATABASE_URL ||*/
             defaultValue : Sequelize.UUIDV4
         },
         nombre : {
-            type : DataTypes.STRING(200),
+            type : DataTypes.STRING(100),
             allowNull : false
         },
         apellido: {
-            type : DataTypes.STRING(200),
+            type : DataTypes.STRING(100),
             allowNull : true
         },  
-        correo:{
-            type : DataTypes.STRING(200),
+        correo: {
+            type : DataTypes.STRING(100),
             allowNull : false
         },
-        contrasena:{
-            type: DataTypes.STRING(200),
+        contrasena: {
+            type : DataTypes.STRING(100),
             allowNull : false
-        },
-        direccion: {
-            type : DataTypes.STRING(200),
-            allowNull : true
-        },
-        departamento: {
-            type : DataTypes.STRING(200),
-            allowNull : true
-        },
-        ciudad: {
-            type :  DataTypes.STRING(200),
-            allowNull : true
-        },
-        cod_post: {
-            type : DataTypes.STRING(200),
-            allowNull : true
         },
         telefono: {
-            type : DataTypes.INTEGER,
+            type : DataTypes.STRING(20),
             allowNull : false
         },
-        auto: {
+        id_tour : {
+            foreignKey: true,
             type : DataTypes.UUIDV4,
-            allowNull : false
+            allowNull : true
+        },
+        id_vehiculo : {
+            foreignKey :true,
+            type : DataTypes.UUIDV4,
         }
     }, {
         timestamps : false,
@@ -119,21 +96,19 @@ const CADENA_CONEXION = /*process.env.DATABASE_URL ||*/
             type: DataTypes.UUID,
             defaultValue : Sequelize.UUIDV4
         },
-        monto:{
-            type : DataTypes.INTEGER,
+        id_turista :{
+            foreignKey : true,
+            type : DataTypes.UUID,
             allowNull : false
         },
-        direccion: {
-            type : DataTypes.STRING(200),
+        id_guia : {
+            foreignKey : true,
+            type : DataTypes.UUID,
             allowNull : false
         },
-        fecha: {
-            type : DataTypes.DATE,
-            allowNull : false
-        },
-        usuario_id: {
-            type: DataTypes.UUID,
-            defaultValue : Sequelize.UUIDV4,
+        id_zona : {
+            foreignKey : true,
+            type : DataTypes.UUID,
             allowNull : false
         },
         guia_id: {
@@ -152,26 +127,26 @@ const CADENA_CONEXION = /*process.env.DATABASE_URL ||*/
             type: DataTypes.UUID,
             defaultValue : Sequelize.UUIDV4
         },
-        color: {
-            type : DataTypes.STRING(200),
+        id_guia : {
+            foreignKey : true,
+            type : DataTypes.UUID,
             allowNull : false
         },
         placa: {
-            type : DataTypes.STRING(200),
+            type : DataTypes.STRING(10),
             allowNull : false
         },
         tipo: {
-            type : DataTypes.STRING(200),
+            type : DataTypes.STRING(100),
             allowNull : false
         },
-        año: {
-            type : DataTypes.INTEGER,
+        modelo : {
+            type : DataTypes.STRING(100),
             allowNull : false
         },
-        guia_id: {
-            type: DataTypes.UUID,
-            defaultValue : Sequelize.UUIDV4,
-            allowNull : false
+        n_asientos : {
+            type :DataTypes.INTEGER,
+            allowNull :false
         }
     },
     {
@@ -181,7 +156,7 @@ const CADENA_CONEXION = /*process.env.DATABASE_URL ||*/
 
     // Relaciones
     //reporte *-------->1 usuario
-    usuario.belongsto(tour,{
+    usuario.belongsTo(tour,{
         foreignKey : "usuario_id"
     })
     guia.belongsTo(tour,{
