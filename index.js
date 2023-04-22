@@ -17,28 +17,24 @@ app.use(cors()) // politica CORS (cualquier origen) <---- TODO: cuidado!!!
 app.use(express.static("assets")) // <-- configuracion de contenido estatico
 
 
-app.post("/usuarios", async (req,resp) => {
+app.post("/turista", async (req,resp) => {
     const dataRequest = req.body
+    const id = dataRequest.id
     const nombre = dataRequest.nombre
     const apellido = dataRequest.apellido
     const correo = dataRequest.correo
-    const cod_post= dataRequest.cod_post
     const telefono = dataRequest.telefono
-    const ciudad = dataRequest.ciudad
-    const departamento = dataRequest.departamento
-    const direccion = dataRequest.direccion
     const contrasena = dataRequest.contrasena
+    const id_tour = dataRequest.id_tour
 
-    await usuario.create({
+    await turista.create({
+        id : id,
         nombre : nombre,
         apellido : apellido,
         correo : correo,
-        cod_post : cod_post,
         telefono : telefono,
-        ciudad : ciudad,
-        departamento : departamento,
-        direccion : direccion,
         contrasena : contrasena,
+        id_tour : id_tour,
     })
 
     resp.send({
@@ -115,9 +111,9 @@ app.post("/vehiculo", async (req,resp) => {
     })
 })
 
-app.get("/usuarios", async (req, resp) => {
-    const listausuario = await usuario.findAll()
-    resp.send(listausuario)
+app.get("/turista", async (req, resp) => {
+    const listaTurista = await usuario.findAll()
+    resp.send(listaTurista)
 })
 
 app.get("/guia", async (req, resp) => {
