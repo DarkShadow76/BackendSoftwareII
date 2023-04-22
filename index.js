@@ -3,7 +3,7 @@ const bodyParser = require("body-parser")
 const cors = require("cors")
 
 //const data = require("./test_data") // importamos data de test
-const { usuario, producto , orden , orden_producto, pc_armado, pc_armado_producto, reporte, resena} = require("./dao")
+const { turista, guia, zona, vehiculo, tour} = require("./dao")
 
 /*const PUERTO = process.env.PORT || 4445*/
 const PUERTO = 4447
@@ -51,7 +51,7 @@ app.post("/guia", async (req,resp) => {
     const id_vehiculo = dataRequest.id_vehiculo
     const calificacion = dataRequest.calificacion
 
-    await turista.create({
+    await guia.create({
         nombre : nombre,
         apellido : apellido,
         correo : correo,
@@ -74,7 +74,7 @@ app.post("/tour", async (req,resp) => {
     const id_zona = dataRequest.id_zona
     const fecha = dataRequest.fecha
 
-    await reporte.create({
+    await tour.create({
         dataRequest : req.body,
         id_guia : dataRequest.id_guia,
         id_turista : dataRequest.id_turista,
@@ -93,7 +93,8 @@ app.post("/vehiculo", async (req,resp) => {
     const modelo = dataRequest.modelo
     const tipo = dataRequest.tipo
     const n_asientos = dataRequest.n_asientos
-    await reporte.create({
+
+    await vehiculo.create({
         id_guia : id_guia,
         placa : placa,
         modelo : modelo,
@@ -109,7 +110,8 @@ app.post("/zona", async (req,resp) => {
     const dataRequest = req.body
     const nombre = req.nombre
     const id_tour = dataRequest.id_tour
-    await reporte.create({
+
+    await zona.create({
         nombre : nombre,
         id_tour : id_tour,
     })  

@@ -5,15 +5,7 @@ const { Sequelize, DataTypes } = require("sequelize");
 
 const CADENA_CONEXION = /*process.env.DATABASE_URL ||*/
     "postgres://postgres:postgres@localhost:5432/postgres"
-    const sequelize = new Sequelize(CADENA_CONEXION)
-    /*const sequelize = new Sequelize(CADENA_CONEXION,{
-        dialectOptions : {
-            ssl : {
-                require : true,
-                rejectUnauthorized : false
-            }
-        }
-    })*/
+const sequelize = new Sequelize(CADENA_CONEXION)
 
     const turista = sequelize.define("turista", {
         id : {
@@ -42,9 +34,8 @@ const CADENA_CONEXION = /*process.env.DATABASE_URL ||*/
             allowNull : false
         },
         id_tour: {
-            foreignKey: true,
             type : DataTypes.UUID,
-            defaultValue : Sequelize.UUIDV4
+            defaultValue : Sequelize.UUIDV4,
         }
     }, {
         timestamps : false,
@@ -77,13 +68,18 @@ const CADENA_CONEXION = /*process.env.DATABASE_URL ||*/
             allowNull : false
         },
         id_tour : {
-            foreignKey: true,
             type : DataTypes.UUIDV4,
+            defaultValue : Sequelize.UUIDV4,
             allowNull : true
         },
         id_vehiculo : {
-            foreignKey :true,
             type : DataTypes.UUIDV4,
+            defaultValue : Sequelize.UUIDV4,
+            allowNull : false
+        },
+        calificacion : {
+            type : DataTypes.INTEGER,
+            allowNull : false
         }
     }, {
         timestamps : false,
@@ -97,23 +93,19 @@ const CADENA_CONEXION = /*process.env.DATABASE_URL ||*/
             defaultValue : Sequelize.UUIDV4
         },
         id_turista :{
-            foreignKey : true,
             type : DataTypes.UUID,
             allowNull : false
         },
         id_guia : {
-            foreignKey : true,
             type : DataTypes.UUID,
             allowNull : false
         },
         id_zona : {
-            foreignKey : true,
             type : DataTypes.UUID,
             allowNull : false
         },
-        guia_id: {
-            type: DataTypes.UUID,
-            defaultValue : Sequelize.UUIDV4,
+        fecha : {
+            type : DataTypes.DATE,
             allowNull : false
         }
     },
@@ -153,24 +145,46 @@ const CADENA_CONEXION = /*process.env.DATABASE_URL ||*/
         timestamps : false,
         freezeTableName : true
     })
+    const zona = sequelize.define("zona",{
+        id : {
+            primaryKey: true,
+            type: DataTypes.UUID,
+            defaultValue : Sequelize.UUIDV4
+        },
+        nombre : {
+            type : DataTypes.STRING(100),
+            allowNull : false
+        },
+        id_tour : {
+
+            type : DataTypes.UUID,
+            allowNull : true
+        }
+    },
+    {
+        timestamps : false,
+        freezeTableName : true
+    })
 
     // Relaciones
     //reporte *-------->1 usuario
-    usuario.belongsTo(tour,{
-        foreignKey : "usuario_id"
+    turista.belongsTo(tour,{
+        foreignKey : "id_turista"
     })
     guia.belongsTo(tour,{
-        foreignKey : "guia_id"
+        foreignKey : "id_guia"
     })
-    tour.hasMany(usuario,{
-        foreignKey : "id"
+    guia.hasMany(vehiculo,{
+        foreignKey : "id_guia"
     })
-    guia.belongsTo(vehiculo,{
-        foreignKey : "guia_id"
+    tour.hasMany(turista,{
+        foreignKey : "id_tour"
     })
     vehiculo.belongsTo(guia,{
-        foreignKey : "auto"
+        foreignKey : "id_vehiculo"
     })
-/*
+    zona.hasMany(tour,{
+        foreignKey : "id_zona"
+    })
 
-*/
+    module.exports = { turista, guia, zona, vehiculo, tour}
