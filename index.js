@@ -19,7 +19,6 @@ app.use(express.static("assets")) // <-- configuracion de contenido estatico
 
 app.post("/turista", async (req,resp) => {
     const dataRequest = req.body
-    const id = dataRequest.id
     const nombre = dataRequest.nombre
     const apellido = dataRequest.apellido
     const correo = dataRequest.correo
@@ -28,7 +27,6 @@ app.post("/turista", async (req,resp) => {
     const id_tour = dataRequest.id_tour
 
     await turista.create({
-        id : id,
         nombre : nombre,
         apellido : apellido,
         correo : correo,
@@ -47,23 +45,21 @@ app.post("/guia", async (req,resp) => {
     const nombre = dataRequest.nombre
     const apellido = dataRequest.apellido
     const correo = dataRequest.correo
-    const cod_post= dataRequest.cod_post
     const telefono = dataRequest.telefono
-    const ciudad = dataRequest.ciudad
-    const departamento = dataRequest.departamento
-    const direccion = dataRequest.direccion
     const contrasena = dataRequest.contrasena
+    const id_tour = dataRequest.id_tour
+    const id_vehiculo = dataRequest.id_vehiculo
+    const calificacion = dataRequest.calificacion
 
-    await guia.create({
+    await turista.create({
         nombre : nombre,
         apellido : apellido,
         correo : correo,
-        cod_post : cod_post,
         telefono : telefono,
-        ciudad : ciudad,
-        departamento : departamento,
-        direccion : direccion,
         contrasena : contrasena,
+        id_tour : id_tour,
+        id_vehiculo : id_vehiculo,
+        calificacion : calificacion,
     })
 
     resp.send({
@@ -73,19 +69,17 @@ app.post("/guia", async (req,resp) => {
 
 app.post("/tour", async (req,resp) => {
     const dataRequest = req.body
-    const monto = dataRequest.monto
-    const direccion = dataRequest.direccion
+    const id_guia = dataRequest.id_guia
+    const id_turista = dataRequest.id_turista
+    const id_zona = dataRequest.id_zona
     const fecha = dataRequest.fecha
-    const usuario_id = dataRequest.usuario_id
-    const descripcion = dataRequest.descripcion
-    const guia_id = dataRequest.guia_id
+
     await reporte.create({
-        correo : correo,
-        monto : monto,
-        direccion : direccion,
-        fecha : asunto,
-        descripcion : descripcion,
-        usuario_id : usuario_id,
+        dataRequest : req.body,
+        id_guia : dataRequest.id_guia,
+        id_turista : dataRequest.id_turista,
+        id_zona : dataRequest.id_zona,
+        fecha : dataRequest.fecha,
     })  
     resp.send({
         confirmar: "Informacion del tour enviada correctamente"
@@ -94,36 +88,59 @@ app.post("/tour", async (req,resp) => {
 
 app.post("/vehiculo", async (req,resp) => {
     const dataRequest = req.body
-    const color = dataRequest.color
+    const id_guia = dataRequest.id_guia
     const placa = dataRequest.placa
+    const modelo = dataRequest.modelo
     const tipo = dataRequest.tipo
-    const año = dataRequest.año
-    const guia_id = dataRequest.guia_id
+    const n_asientos = dataRequest.n_asientos
     await reporte.create({
-        color : color,
+        id_guia : id_guia,
         placa : placa,
+        modelo : modelo,
         tipo : tipo,
-        año : año,
-        guia_id : guia_id,
+        n_asientos : n_asientos,
     })  
     resp.send({
         confirmar: "Informacion del vehiculo enviada correctamente"
     })
 })
 
+app.post("/zona", async (req,resp) => {
+    const dataRequest = req.body
+    const nombre = req.nombre
+    const id_tour = dataRequest.id_tour
+    await reporte.create({
+        nombre : nombre,
+        id_tour : id_tour,
+    })  
+    resp.send({
+        confirmar: "Informacion de mi cabeZOna enviada correctamente"
+    })
+})
+
 app.get("/turista", async (req, resp) => {
-    const listaTurista = await usuario.findAll()
+    const listaTurista = await turista.findAll()
     resp.send(listaTurista)
 })
 
 app.get("/guia", async (req, resp) => {
-    const listaguia = await usuario.findAll()
-    resp.send(listaguia)
+    const listaGuia = await guia.findAll()
+    resp.send(listaGuia)
 })
 
 app.get("/vehiculo", async (req, resp) => {
-    const listaguia = await usuario.findAll()
-    resp.send(listaguia)
+    const listaVehiculo = await vehiculo.findAll()
+    resp.send(listaVehiculo)
+})
+
+app.get("/tour", async (req, resp) => {
+    const listaTour = await tour.findAll()
+    resp.send(listaTour)
+})
+
+app.get("/zona", async (req, resp) => {
+    const listaZona = await zona.findAll()
+    resp.send(listaZona)
 })
 
 app.listen(PUERTO, () => {
