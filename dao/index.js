@@ -169,22 +169,22 @@ const sequelize = new Sequelize(CADENA_CONEXION)
     // Relaciones
     //reporte *-------->1 usuario
     turista.belongsTo(tour,{
-        foreignKey : "id_turista"
+        foreignKey : "id_tour"
     })
     guia.belongsTo(tour,{
-        foreignKey : "id_guia"
+        foreignKey : "id_tour"
     })
     guia.hasMany(vehiculo,{
         foreignKey : "id_guia"
     })
     tour.hasMany(turista,{
-        foreignKey : "id_tour"
+        foreignKey : "id_turista"
     })
     vehiculo.belongsTo(guia,{
-        foreignKey : "id_vehiculo"
+        foreignKey : "id_guia"
     })
     zona.hasMany(tour,{
-        foreignKey : "id_zona"
+        foreignKey : "id_tour"
     })
 
     module.exports = { turista, guia, zona, vehiculo, tour}
