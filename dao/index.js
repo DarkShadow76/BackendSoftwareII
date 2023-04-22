@@ -5,7 +5,7 @@ const { Sequelize, DataTypes } = require("sequelize");
 
 const CADENA_CONEXION = /*process.env.DATABASE_URL ||*/
     "postgres://postgres:postgres@localhost:5432/postgres"
-    
+
 const sequelize = new Sequelize(CADENA_CONEXION)
 
     const turista = sequelize.define("turista", {
@@ -170,19 +170,19 @@ const sequelize = new Sequelize(CADENA_CONEXION)
     // Relaciones
     //reporte *-------->1 usuario
     guia.belongsTo(tour,{
-        foreignKey : "id_tour"
+        foreignKey : "id"
     })
     guia.hasMany(vehiculo,{
         foreignKey : "id_guia"
     })
-    tour.hasMany(turista,{
-        foreignKey : "id_turista"
+    turista.belongsTo(tour,{
+        foreignKey : "id"
     })
     vehiculo.belongsTo(guia,{
         foreignKey : "id_guia"
     })
     zona.hasMany(tour,{
-        foreignKey : "id_tour"
+        foreignKey : "id"
     })
 
     module.exports = { turista, guia, zona, vehiculo, tour}
