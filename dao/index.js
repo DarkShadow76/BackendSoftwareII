@@ -21,15 +21,33 @@ const sequelize = new Sequelize(CADENA_CONEXION)
         apellido: {
             type : DataTypes.STRING(100),
             allowNull : true
-        },  
+        },
         correo:{
             type : DataTypes.STRING(100),
             allowNull : false
         },
-        contrasena:{
-            type: DataTypes.STRING(100),
+        contrasenia:{
+            type: DataTypes.STRING(200),
             allowNull : false
         },
+        // tabla locacion
+        direccion: {
+            type : DataTypes.STRING(200),
+            allowNull : true
+        },
+        departamento: {
+            type : DataTypes.STRING(200),
+            allowNull : true
+        },
+        ciudad: {
+            type :  DataTypes.STRING(200),
+            allowNull : true
+        },
+        cod_post: {
+            type : DataTypes.STRING(200),
+            allowNull : true
+        },
+        //
         telefono: {
             type : DataTypes.STRING(20),
             allowNull : false
@@ -60,15 +78,38 @@ const sequelize = new Sequelize(CADENA_CONEXION)
             type : DataTypes.STRING(100),
             allowNull : false
         },
+        contrasenia:{
+            type: DataTypes.STRING(200),
         contrasena: {
             type : DataTypes.STRING(100),
             allowNull : false
+        },
+        // tabla locacion
+        direccion: {
+            type : DataTypes.STRING(200),
+            allowNull : true
+        telefono: {
+            type : DataTypes.STRING(20),
+            allowNull : false
+        },
+        departamento: {
+            type : DataTypes.STRING(200),
+            allowNull : true
+        },
+        ciudad: {
+            type :  DataTypes.STRING(200),
+            allowNull : true
+        },
+        cod_post: {
+            type : DataTypes.STRING(200),
+            allowNull : true
         },
         telefono: {
             type : DataTypes.STRING(20),
             allowNull : false
         },
-        id_tour : {
+        //
+        auto: {
             type : DataTypes.UUIDV4,
             defaultValue : Sequelize.UUIDV4,
             allowNull : true
@@ -108,7 +149,19 @@ const sequelize = new Sequelize(CADENA_CONEXION)
         fecha : {
             type : DataTypes.DATE,
             allowNull : false
-        }
+        },
+        usuario_id: {
+            type: DataTypes.UUID,
+            defaultValue : Sequelize.UUIDV4,
+            allowNull : false
+        },
+        guia_id: {
+            type: DataTypes.UUID,
+            defaultValue : Sequelize.UUIDV4,
+            allowNull : false
+        },
+        // Agregar estado
+        // Fabrica Tour
     },
     {
         timestamps : false,
@@ -133,6 +186,8 @@ const sequelize = new Sequelize(CADENA_CONEXION)
             type : DataTypes.STRING(100),
             allowNull : false
         },
+        anio: {
+            type : DataTypes.INTEGER,
         modelo : {
             type : DataTypes.STRING(100),
             allowNull : false
