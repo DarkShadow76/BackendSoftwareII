@@ -8,236 +8,237 @@ const CADENA_CONEXION = /*process.env.DATABASE_URL ||*/
 
 const sequelize = new Sequelize(CADENA_CONEXION)
 
-    const turista = sequelize.define("turista", {
-        id : {
-            primaryKey : true,
-            type : DataTypes.UUID,
-            defaultValue : Sequelize.UUIDV4
-        },
-        nombre : {
-            type : DataTypes.STRING(100),
-            allowNull : false
-        },
-        apellido: {
-            type : DataTypes.STRING(100),
-            allowNull : true
-        },
-        correo:{
-            type : DataTypes.STRING(100),
-            allowNull : false
-        },
-        contrasenia:{
-            type: DataTypes.STRING(200),
-            allowNull : false
-        },
-        // tabla locacion
-        direccion: {
-            type : DataTypes.STRING(200),
-            allowNull : true
-        },
-        departamento: {
-            type : DataTypes.STRING(200),
-            allowNull : true
-        },
-        ciudad: {
-            type :  DataTypes.STRING(200),
-            allowNull : true
-        },
-        cod_post: {
-            type : DataTypes.STRING(200),
-            allowNull : true
-        },
-        //
-        telefono: {
-            type : DataTypes.STRING(20),
-            allowNull : false
-        },
-        id_tour: {
-            type : DataTypes.UUID,
-            defaultValue : Sequelize.UUIDV4,
-        }
-    }, {
-        timestamps : false,
-        freezeTableName : true
-    })
-    const guia = sequelize.define("guia", {
-        id : {
-            primaryKey : true,
-            type : DataTypes.UUID,
-            defaultValue : Sequelize.UUIDV4
-        },
-        nombre : {
-            type : DataTypes.STRING(100),
-            allowNull : false
-        },
-        apellido: {
-            type : DataTypes.STRING(100),
-            allowNull : true
-        },  
-        correo: {
-            type : DataTypes.STRING(100),
-            allowNull : false
-        },
-        contrasenia:{
-            type: DataTypes.STRING(200),
-        contrasena: {
-            type : DataTypes.STRING(100),
-            allowNull : false
-        },
-        // tabla locacion
-        direccion: {
-            type : DataTypes.STRING(200),
-            allowNull : true
-        telefono: {
-            type : DataTypes.STRING(20),
-            allowNull : false
-        },
-        departamento: {
-            type : DataTypes.STRING(200),
-            allowNull : true
-        },
-        ciudad: {
-            type :  DataTypes.STRING(200),
-            allowNull : true
-        },
-        cod_post: {
-            type : DataTypes.STRING(200),
-            allowNull : true
-        },
-        telefono: {
-            type : DataTypes.STRING(20),
-            allowNull : false
-        },
-        //
-        auto: {
-            type : DataTypes.UUIDV4,
-            defaultValue : Sequelize.UUIDV4,
-            allowNull : true
-        },
-        id_vehiculo : {
-            type : DataTypes.UUIDV4,
-            defaultValue : Sequelize.UUIDV4,
-            allowNull : false
-        },
-        calificacion : {
-            type : DataTypes.INTEGER,
-            allowNull : false
-        }
-    }, {
-        timestamps : false,
-        freezeTableName : true
-    })
-
-    const tour = sequelize.define("tour",{
-        id : {
-            primaryKey: true,
-            type: DataTypes.UUID,
-            defaultValue : Sequelize.UUIDV4
-        },
-        id_turista :{
-            type : DataTypes.UUID,
-            allowNull : false
-        },
-        id_guia : {
-            type : DataTypes.UUID,
-            allowNull : false
-        },
-        id_zona : {
-            type : DataTypes.UUID,
-            allowNull : false
-        },
-        fecha : {
-            type : DataTypes.DATE,
-            allowNull : false
-        },
-        usuario_id: {
-            type: DataTypes.UUID,
-            defaultValue : Sequelize.UUIDV4,
-            allowNull : false
-        },
-        guia_id: {
-            type: DataTypes.UUID,
-            defaultValue : Sequelize.UUIDV4,
-            allowNull : false
-        },
-        // Agregar estado
-        // Fabrica Tour
+const turista = sequelize.define("turista", {
+    id: {
+        primaryKey: true,
+        type: DataTypes.UUID,
+        defaultValue: Sequelize.UUIDV4
     },
-    {
-        timestamps : false,
-        freezeTableName : true
-    })
-    const vehiculo = sequelize.define("vehiculo",{
-        id : {
-            primaryKey: true,
-            type: DataTypes.UUID,
-            defaultValue : Sequelize.UUIDV4
-        },
-        id_guia : {
-            foreignKey : true,
-            type : DataTypes.UUID,
-            allowNull : false
-        },
-        placa: {
-            type : DataTypes.STRING(10),
-            allowNull : false
-        },
-        tipo: {
-            type : DataTypes.STRING(100),
-            allowNull : false
-        },
-        anio: {
-            type : DataTypes.INTEGER,
-        modelo : {
-            type : DataTypes.STRING(100),
-            allowNull : false
-        },
-        n_asientos : {
-            type :DataTypes.INTEGER,
-            allowNull :false
-        }
+    nombre: {
+        type: DataTypes.STRING(100),
+        allowNull: false
     },
-    {
-        timestamps : false,
-        freezeTableName : true
-    })
-    const zona = sequelize.define("zona",{
-        id : {
-            primaryKey: true,
-            type: DataTypes.UUID,
-            defaultValue : Sequelize.UUIDV4
-        },
-        nombre : {
-            type : DataTypes.STRING(100),
-            allowNull : false
-        },
-        id_tour : {
-
-            type : DataTypes.UUID,
-            allowNull : true
-        }
+    apellido: {
+        type: DataTypes.STRING(100),
+        allowNull: true
     },
+    correo: {
+        type: DataTypes.STRING(100),
+        allowNull: false
+    },
+    contrasenia: {
+        type: DataTypes.STRING(200),
+        allowNull: false
+    },
+    // tabla locacion
+    direccion: {
+        type: DataTypes.STRING(200),
+        allowNull: true
+    },
+    departamento: {
+        type: DataTypes.STRING(200),
+        allowNull: true
+    },
+    ciudad: {
+        type: DataTypes.STRING(200),
+        allowNull: true
+    },
+    cod_post: {
+        type: DataTypes.STRING(200),
+        allowNull: true
+    },
+    //
+    telefono: {
+        type: DataTypes.STRING(20),
+        allowNull: false
+    },
+    id_tour: {
+        type: DataTypes.UUID,
+        defaultValue: Sequelize.UUIDV4,
+    }
+}, {
+    timestamps: false,
+    freezeTableName: true
+})
+const guia = sequelize.define("guia", {
+    id: {
+        primaryKey: true,
+        type: DataTypes.UUID,
+        defaultValue: Sequelize.UUIDV4
+    },
+    nombre: {
+        type: DataTypes.STRING(100),
+        allowNull: false
+    },
+    apellido: {
+        type: DataTypes.STRING(100),
+        allowNull: true
+    },
+    correo: {
+        type: DataTypes.STRING(100),
+        allowNull: false
+    },
+    contrasenia: {
+        type: DataTypes.STRING(200),
+        type: DataTypes.STRING(100),
+        allowNull: false
+    },
+    // tabla locacion
+    direccion: {
+        type: DataTypes.STRING(200),
+        allowNull: true
+    },
+    telefono: {
+        type: DataTypes.STRING(20),
+        allowNull: false
+    },
+    departamento: {
+        type: DataTypes.STRING(200),
+        allowNull: true
+    },
+    ciudad: {
+        type: DataTypes.STRING(200),
+        allowNull: true
+    },
+    cod_post: {
+        type: DataTypes.STRING(200),
+        allowNull: true
+    },
+    telefono: {
+        type: DataTypes.STRING(20),
+        allowNull: false
+    },
+    //
+    auto: {
+        type: DataTypes.UUIDV4,
+        defaultValue: Sequelize.UUIDV4,
+        allowNull: true
+    },
+    id_vehiculo: {
+        type: DataTypes.UUIDV4,
+        defaultValue: Sequelize.UUIDV4,
+        allowNull: false
+    },
+    calificacion: {
+        type: DataTypes.INTEGER,
+        allowNull: false
+    }
+}, {
+    timestamps: false,
+    freezeTableName: true
+})
+
+const tour = sequelize.define("tour", {
+    id: {
+        primaryKey: true,
+        type: DataTypes.UUID,
+        defaultValue: Sequelize.UUIDV4
+    },
+    id_turista: {
+        type: DataTypes.UUID,
+        allowNull: false
+    },
+    id_guia: {
+        type: DataTypes.UUID,
+        allowNull: false
+    },
+    id_zona: {
+        type: DataTypes.UUID,
+        allowNull: false
+    },
+    fecha: {
+        type: DataTypes.DATE,
+        allowNull: false
+    },
+    usuario_id: {
+        type: DataTypes.UUID,
+        defaultValue: Sequelize.UUIDV4,
+        allowNull: false
+    },
+    guia_id: {
+        type: DataTypes.UUID,
+        defaultValue: Sequelize.UUIDV4,
+        allowNull: false
+    },
+    // Agregar estado
+    // Fabrica Tour
+},
     {
-        timestamps : false,
-        freezeTableName : true
+        timestamps: false,
+        freezeTableName: true
+    })
+const vehiculo = sequelize.define("vehiculo", {
+    id: {
+        primaryKey: true,
+        type: DataTypes.UUID,
+        defaultValue: Sequelize.UUIDV4
+    },
+    id_guia: {
+        foreignKey: true,
+        type: DataTypes.UUID,
+        allowNull: false
+    },
+    placa: {
+        type: DataTypes.STRING(10),
+        allowNull: false
+    },
+    tipo: {
+        type: DataTypes.STRING(100),
+        allowNull: false
+    },
+    anio: {
+        type: DataTypes.INTEGER,
+    },
+    modelo: {
+        type: DataTypes.STRING(100),
+        allowNull: false
+    },
+    n_asientos: {
+        type: DataTypes.INTEGER,
+        allowNull: false
+    }
+},
+    {
+        timestamps: false,
+        freezeTableName: true
+    })
+const zona = sequelize.define("zona", {
+    id: {
+        primaryKey: true,
+        type: DataTypes.UUID,
+        defaultValue: Sequelize.UUIDV4
+    },
+    nombre: {
+        type: DataTypes.STRING(100),
+        allowNull: false
+    },
+    id_tour: {
+
+        type: DataTypes.UUID,
+        allowNull: true
+    }
+},
+    {
+        timestamps: false,
+        freezeTableName: true
     })
 
-    // Relaciones
-    //reporte *-------->1 usuario
-    guia.belongsTo(tour,{
-        foreignKey : "id"
-    })
-    guia.hasMany(vehiculo,{
-        foreignKey : "id_guia"
-    })
-    turista.belongsTo(tour,{
-        foreignKey : "id"
-    })
-    vehiculo.belongsTo(guia,{
-        foreignKey : "id_guia"
-    })
-    zona.hasMany(tour,{
-        foreignKey : "id"
-    })
+// Relaciones
+//reporte *-------->1 usuario
+guia.belongsTo(tour, {
+    foreignKey: "id"
+})
+guia.hasMany(vehiculo, {
+    foreignKey: "id_guia"
+})
+turista.belongsTo(tour, {
+    foreignKey: "id"
+})
+vehiculo.belongsTo(guia, {
+    foreignKey: "id_guia"
+})
+zona.hasMany(tour, {
+    foreignKey: "id"
+})
 
-    module.exports = { turista, guia, zona, vehiculo, tour}
+module.exports = { turista, guia, zona, vehiculo, tour }

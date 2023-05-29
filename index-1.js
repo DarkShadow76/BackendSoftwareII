@@ -3,7 +3,7 @@ const bodyParser = require("body-parser")
 const cors = require("cors")
 
 //const data = require("./test_data") // importamos data de test
-const { turista, guia, zona, vehiculo, tour} = require("./dao")
+const { turista, guia, zona, vehiculo, tour } = require("./dao")
 
 /*const PUERTO = process.env.PORT || 4445*/
 const PUERTO = 4447
@@ -11,7 +11,7 @@ const PUERTO = 4447
 const app = express()
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({
-    extended : true
+    extended: true
 }))
 app.use(cors()) // politica CORS (cualquier origen) <---- TODO: cuidado!!!
 app.use(express.static("assets")) // <-- configuracion de contenido estatico
