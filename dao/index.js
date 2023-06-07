@@ -4,116 +4,144 @@ const { Sequelize, DataTypes } = require("sequelize");
 
 
 const CADENA_CONEXION = /*process.env.DATABASE_URL ||*/
-    "postgres://postgres:postgres@localhost:5432/postgres"
+  "postgres://postgres:postgres@localhost:5432/postgres"
 
 const sequelize = new Sequelize(CADENA_CONEXION)
 
 const turista = sequelize.define("turista", {
-    id: {
-        primaryKey: true,
-        type: DataTypes.UUID,
-        defaultValue: Sequelize.UUIDV4
-    },
-    nombre: {
-        type: DataTypes.STRING(100),
-        allowNull: false
-    },
-    apellido: {
-        type: DataTypes.STRING(100),
-        allowNull: true
-    },
-    correo: {
-        type: DataTypes.STRING(100),
-        allowNull: false
-    },
-    contrasenia: {
-        type: DataTypes.STRING(100),
-        allowNull: false
-    },
-    telefono: {
-        type: DataTypes.STRING(20),
-        allowNull: false
-    },
+  id: {
+    primaryKey: true,
+    type: DataTypes.UUID,
+    defaultValue: Sequelize.UUIDV4
+  },
+  nombre: {
+    type: DataTypes.STRING(100),
+    allowNull: false
+  },
+  apellido: {
+    type: DataTypes.STRING(100),
+    allowNull: true
+  },
+  correo: {
+    type: DataTypes.STRING(100),
+    allowNull: false
+  },
+  contrasenia: {
+    type: DataTypes.STRING(100),
+    allowNull: false
+  },
+  telefono: {
+    type: DataTypes.STRING(20),
+    allowNull: false
+  },
 }, {
-    timestamps: false,
-    freezeTableName: true
+  timestamps: false,
+  freezeTableName: true
 })
 const guia = sequelize.define("guia", {
-    id: {
-        primaryKey: true,
-        type: DataTypes.UUID,
-        defaultValue: Sequelize.UUIDV4
-    },
-    nombre: {
-        type: DataTypes.STRING(100),
-        allowNull: false
-    },
-    apellido: {
-        type: DataTypes.STRING(100),
-        allowNull: true
-    },
-    correo: {
-        type: DataTypes.STRING(100),
-        allowNull: false
-    },
-    contrasenia: {
-        type: DataTypes.STRING(100),
-        allowNull: false
-    },
-    telefono: {
-        type: DataTypes.STRING(20),
-        allowNull: false
-    }
+  id: {
+    primaryKey: true,
+    type: DataTypes.UUID,
+    defaultValue: Sequelize.UUIDV4
+  },
+  nombre: {
+    type: DataTypes.STRING(100),
+    allowNull: false
+  },
+  apellido: {
+    type: DataTypes.STRING(100),
+    allowNull: true
+  },
+  correo: {
+    type: DataTypes.STRING(100),
+    allowNull: false
+  },
+  contrasenia: {
+    type: DataTypes.STRING(100),
+    allowNull: false
+  },
+  telefono: {
+    type: DataTypes.STRING(20),
+    allowNull: false
+  }
 }, {
+  timestamps: false,
+  freezeTableName: true
+})
+
+const servicio = sequelize.define("servicio", {
+  id: {
+    primaryKey: true,
+    type: DataTypes.UUID,
+    defaultValue: Sequelize.UUIDV4
+  },
+  id_guia: {
+    type: DataTypes.UUID,
+    allowNull: false
+  },
+  monto: {
+    type: DataTypes.DOUBLE,
+    allowNull: true
+  },
+  categoria: {
+    type: DataTypes.STRING(100),
+    allowNull: false
+  },
+  puntaje: {
+    type: DataTypes.DOUBLE,
+    allowNull: false
+  },
+  estado: {
+    type: DataTypes.STRING(100),
+    allowNull: false
+  }
+
+},
+  {
     timestamps: false,
     freezeTableName: true
 })
 
-const tour = sequelize.define("tour", {
-    id: {
-        primaryKey: true,
-        type: DataTypes.UUID,
-        defaultValue: Sequelize.UUIDV4
-    },
-    id_turista: {
-        type: DataTypes.UUID,
-        allowNull: false
-    },
-    id_guia: {
-        type: DataTypes.UUID,
-        allowNull: false
-    },
-    id_zona: {
-        type: DataTypes.UUID,
-        allowNull: false
-    },
-    fecha: {
-        type: DataTypes.DATE,
-        allowNull: false
-    },
-    usuario_id: {
-        type: DataTypes.UUID,
-        defaultValue: Sequelize.UUIDV4,
-        allowNull: false
-    },
-    guia_id: {
-        type: DataTypes.UUID,
-        defaultValue: Sequelize.UUIDV4,
-        allowNull: false
-    },
+const reserva = sequelize.define("reserva", {
+  id: {
+    primaryKey: true,
+    type: DataTypes.UUID,
+    allowNull: false
+  },
+  turista_id: {
+    type: DataTypes.UUID,
+    allowNull: false
+  },
+  servicio_id: {
+    type: DataTypes.UUID,
+    allowNull: false
+  },
+  nombre: {
+    type: DataTypes.STRING(100),
+    allowNull: false
+  }
 },
-    {
-        timestamps: false,
-        freezeTableName: true
+  {
+    timestamps: false,
+    freezeTableName: true
 })
+
 // Relaciones
 //reporte *-------->1 usuario
-guia.belongsTo(tour, {
-    foreignKey: "id"
+servicio.belongsTo(guia, {
+  foreignKey: "id"
 })
 
-turista.belongsTo(tour, {
-    foreignKey: "id"
+guia.hasMany(servicio, {
+  foreignKey: "id_guia"
 })
 
-module.exports = { turista, guia, tour }
+turista.belongsTo(reserva, {
+  foreignKey: "id"
+})
+
+reserva.hasMany(turista, {
+  foreignKey: "id"
+})
+
+module.exports = { turista, guia, servicio, reserva}
