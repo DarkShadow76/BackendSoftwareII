@@ -23,16 +23,14 @@ app.post("/turista", async (req, resp) => {
   const apellido = dataRequest.apellido
   const correo = dataRequest.correo
   const telefono = dataRequest.telefono
-  const contrasena = dataRequest.contrasena
-  const id_tour = dataRequest.id_tour
+  const contrasenia = dataRequest.contrasenia
 
   await turista.create({
     nombre: nombre,
     apellido: apellido,
     correo: correo,
     telefono: telefono,
-    contrasena: contrasena,
-    id_tour: id_tour,
+    contrasenia: contrasenia
   })
 
   resp.send({
@@ -46,20 +44,14 @@ app.post("/guia", async (req, resp) => {
   const apellido = dataRequest.apellido
   const correo = dataRequest.correo
   const telefono = dataRequest.telefono
-  const contrasena = dataRequest.contrasena
-  const id_tour = dataRequest.id_tour
-  const id_vehiculo = dataRequest.id_vehiculo
-  const calificacion = dataRequest.calificacion
+  const contrasenia = dataRequest.contrasenia
 
   await guia.create({
     nombre: nombre,
     apellido: apellido,
     correo: correo,
     telefono: telefono,
-    contrasena: contrasena,
-    id_tour: id_tour,
-    id_vehiculo: id_vehiculo,
-    calificacion: calificacion,
+    contrasenia: contrasenia
   })
 
   resp.send({
@@ -70,18 +62,36 @@ app.post("/guia", async (req, resp) => {
 app.post("/servicio", async (req, resp) => {
   const dataRequest = req.body
   const id_guia = dataRequest.id_guia
-  const id_turista = dataRequest.id_turista
-  const fecha = dataRequest.fecha
+  const monto = dataRequest.monto
+  const categoria = dataRequest.categoria
+  const puntaje = dataRequest.puntaje
+  const estado = dataRequest.estado
 
-  await tour.create({
-    dataRequest: req.body,
-    id_guia: dataRequest.id_guia,
-    id_turista: dataRequest.id_turista,
-    id_zona: dataRequest.id_zona,
-    fecha: dataRequest.fecha,
+  await servicio.create({
+    id_guia: id_guia,
+    monto: monto,
+    categoria: categoria,
+    puntaje: puntaje,
+    estado: estado
   })
   resp.send({
-    confirmar: "Informacion del tour enviada correctamente"
+    confirmar: "Informacion del servicio enviada correctamente"
+  })
+})
+
+app.post("/reserva", async (req, resp) => {
+  const dataRequest = req.body
+  const turista_id = dataRequest.turista_id
+  const servicio_id = dataRequest.servicio_id
+  const nombre = dataRequest.nombre
+
+  await reserva.create({
+    turista_id : turista_id,
+    servicio_id : servicio_id,
+    nombre : nombre
+  })
+  resp.send({
+    confirmar: "Informacion de reserva enviada correctamente"
   })
 })
 
