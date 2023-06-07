@@ -12,6 +12,7 @@ const turista = sequelize.define("turista", {
   id: {
     primaryKey: true,
     type: DataTypes.UUID,
+    allowNull: false,
     defaultValue: Sequelize.UUIDV4
   },
   nombre: {
@@ -42,6 +43,7 @@ const guia = sequelize.define("guia", {
   id: {
     primaryKey: true,
     type: DataTypes.UUID,
+    allowNull: false,
     defaultValue: Sequelize.UUIDV4
   },
   nombre: {
@@ -73,6 +75,7 @@ const servicio = sequelize.define("servicio", {
   id: {
     primaryKey: true,
     type: DataTypes.UUID,
+    allowNull: false,
     defaultValue: Sequelize.UUIDV4
   },
   id_guia: {
@@ -106,7 +109,8 @@ const reserva = sequelize.define("reserva", {
   id: {
     primaryKey: true,
     type: DataTypes.UUID,
-    allowNull: false
+    allowNull: false,
+    defaultValue: Sequelize.UUIDV4
   },
   turista_id: {
     type: DataTypes.UUID,
