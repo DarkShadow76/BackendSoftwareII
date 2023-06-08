@@ -3,7 +3,6 @@
 
 Grupo:
 
-- Sebastian Chavarry (Scrum Master)
 - Alonso Caceres (Jefe Backend)
 - Jean Pieer Del Pozo (Jefe Frontend)
 - Anthony Canon

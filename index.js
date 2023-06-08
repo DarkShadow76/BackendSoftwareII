@@ -17,6 +17,30 @@ app.use(cors()) // politica CORS (cualquier origen) <---- TODO: cuidado!!!
 app.use(express.static("assets")) // <-- configuracion de contenido estatico
 
 
+async function getUser(userType, id, correo, contrasenia, resp) {
+  if (id == undefined || id == "-1") {
+    if ((correo == undefined || correo == "-1") && 
+    (contrasenia == undefined || contrasenia == "-1")) {
+      const listaUsuario = await userType.findAll()
+      resp.send(listaUsuario)
+    } else{
+      const usuarioFiltrado = await userType.findAll({
+        where: {
+          correo : correo,
+          contrasenia : contrasenia
+        }
+      })
+      resp.send(usuarioFiltrado)
+    }
+  }
+  else {
+    const usuarioFiltrados = await userType.findAll({
+      where: { id: id }
+    })
+    resp.send(usuarioFiltrados)
+  }
+}
+
 app.post("/turista", async (req, resp) => {
   const dataRequest = req.body
   const nombre = dataRequest.nombre
@@ -97,30 +121,16 @@ app.post("/reserva", async (req, resp) => {
 
 app.get("/turista", async (req, resp) => {
   const id = req.query.id
-  if (id == undefined || id == "-1") {
-    const listaTuristas = await turista.findAll()
-    resp.send(listaTuristas)
-  }
-  else {
-    const turistasFiltrados = await turista.findAll({
-      where: { id: id }
-    })
-    resp.send(turistasFiltrados)
-  }
+  const correo = req.query.correo
+  const contrasenia = req.query.contrasenia
+  getUser(turista, id,correo, contrasenia, resp)
 })
 
 app.get("/guia", async (req, resp) => {
   const id = req.query.id
-  if (id == undefined || id == "-1") {
-    const listaGuias = await guia.findAll()
-    resp.send(listaGuias)
-  }
-  else {
-    const guiasFiltrados = await guia.findAll({
-      where: { id: id }
-    })
-    resp.send(guiasFiltrados)
-  }
+  const correo = req.query.correo
+  const contrasenia = req.query.contrasenia
+  getUser(guia, id,correo, contrasenia, resp)
 })
 
 app.get("/servicio", async (req, resp) => {
