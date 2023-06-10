@@ -4,7 +4,7 @@ const cors = require("cors")
 
 //const data = require("./test_data") // importamos data de test
 const { turista, guia, servicio, reserva } = require("./dao")
-const { Sequelize } = require("sequelize")
+const { invUser } = require("./util")
 
 /*const PUERTO = process.env.PORT || 4445*/
 const PUERTO = 4447
@@ -37,7 +37,7 @@ async function getUser(userType, id, correo, contrasenia, resp) {
       if (number < 1) {
         //var prob = JSON.parse("-1")
         console.log("No existe tal usuario el tabla")
-        resp.send(null)
+        resp.send(invUser)
       } else {
         const usuarioFiltrado = await userType.findAll({
           where: {
