@@ -5,7 +5,7 @@ Grupo:
 
 - Alonso Caceres (Jefe Backend)
 - Jean Pieer Del Pozo (Jefe Frontend)
-- Anthony Canon
+- Anthony Canon (Scrum Master)
 - Angel Ferroa
 - Franco Oshiro
 

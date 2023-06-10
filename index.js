@@ -4,6 +4,7 @@ const cors = require("cors")
 
 //const data = require("./test_data") // importamos data de test
 const { turista, guia, servicio, reserva} = require("./dao")
+const { Sequelize } = require("sequelize")
 
 /*const PUERTO = process.env.PORT || 4445*/
 const PUERTO = 4447
@@ -21,15 +22,20 @@ async function getUser(userType, id, correo, contrasenia, resp) {
   if (id == undefined || id == "-1") {
     if ((correo == undefined || correo == "-1") && 
     (contrasenia == undefined || contrasenia == "-1")) {
+
       const listaUsuario = await userType.findAll()
       resp.send(listaUsuario)
+
     } else{
+      let array = [];
       const usuarioFiltrado = await userType.findAll({
         where: {
           correo : correo,
           contrasenia : contrasenia
         }
       })
+      array[0] = usuarioFiltrado
+      console.log("Usuario " + array.length + " " + typeof(array[0]));
       resp.send(usuarioFiltrado)
     }
   }
@@ -39,6 +45,8 @@ async function getUser(userType, id, correo, contrasenia, resp) {
     })
     resp.send(usuarioFiltrados)
   }
+
+  // return console.log("Happy Easter")
 }
 
 app.post("/turista", async (req, resp) => {
