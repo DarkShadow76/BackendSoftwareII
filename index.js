@@ -3,7 +3,7 @@ const bodyParser = require("body-parser")
 const cors = require("cors")
 
 //const data = require("./test_data") // importamos data de test
-const { turista, guia, servicio, reserva} = require("./dao")
+const { turista, guia, servicio, reserva } = require("./dao")
 const { Sequelize } = require("sequelize")
 
 /*const PUERTO = process.env.PORT || 4445*/
@@ -20,23 +20,35 @@ app.use(express.static("assets")) // <-- configuracion de contenido estatico
 
 async function getUser(userType, id, correo, contrasenia, resp) {
   if (id == undefined || id == "-1") {
-    if ((correo == undefined || correo == "-1") && 
-    (contrasenia == undefined || contrasenia == "-1")) {
+    if ((correo == undefined || correo == "-1") &&
+      (contrasenia == undefined || contrasenia == "-1")) {
 
       const listaUsuario = await userType.findAll()
       resp.send(listaUsuario)
 
-    } else{
-      let array = [];
-      const usuarioFiltrado = await userType.findAll({
+    } else {
+
+      const number = await userType.count({
         where: {
-          correo : correo,
-          contrasenia : contrasenia
+          correo: correo,
+          contrasenia: contrasenia
         }
       })
-      array[0] = usuarioFiltrado
-      console.log("Usuario " + array.length + " " + typeof(array[0]));
-      resp.send(usuarioFiltrado)
+      if (number < 1) {
+        //var prob = JSON.parse("-1")
+        console.log("No existe tal usuario el tabla")
+        resp.send(null)
+      } else {
+        const usuarioFiltrado = await userType.findAll({
+          where: {
+            correo: correo,
+            contrasenia: contrasenia
+          }
+        })
+
+        console.log("Usuario " + number)
+        resp.send(usuarioFiltrado)
+      }
     }
   }
   else {
@@ -118,9 +130,9 @@ app.post("/reserva", async (req, resp) => {
   const nombre = dataRequest.nombre
 
   await reserva.create({
-    turista_id : turista_id,
-    servicio_id : servicio_id,
-    nombre : nombre
+    turista_id: turista_id,
+    servicio_id: servicio_id,
+    nombre: nombre
   })
   resp.send({
     confirmar: "Informacion de reserva enviada correctamente"
@@ -131,14 +143,14 @@ app.get("/turista", async (req, resp) => {
   const id = req.query.id
   const correo = req.query.correo
   const contrasenia = req.query.contrasenia
-  getUser(turista, id,correo, contrasenia, resp)
+  getUser(turista, id, correo, contrasenia, resp)
 })
 
 app.get("/guia", async (req, resp) => {
   const id = req.query.id
   const correo = req.query.correo
   const contrasenia = req.query.contrasenia
-  getUser(guia, id,correo, contrasenia, resp)
+  getUser(guia, id, correo, contrasenia, resp)
 })
 
 app.get("/servicio", async (req, resp) => {
