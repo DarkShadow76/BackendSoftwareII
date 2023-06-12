@@ -4,7 +4,7 @@ const cors = require("cors")
 
 //const data = require("./test_data") // importamos data de test
 const { turista, guia, servicio, reserva } = require("./dao")
-const { invUser } = require("./util")
+const { invUser } = require("./util").default
 
 /*const PUERTO = process.env.PORT || 4445*/
 const PUERTO = 4447
