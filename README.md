@@ -29,3 +29,6 @@ Instalar dependencias con npm
   npm install
   npm install cors express sequelize react-router-doom
 ```
+Diagrama de Clases
+
+![img.JPG](img.JPG)
