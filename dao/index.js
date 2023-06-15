@@ -1,10 +1,12 @@
 const { Sequelize, DataTypes } = require("sequelize");
+import * as dotenv from 'dotenv'
+dotenv.config();
 
 // postgres://<USUARIO>:<PASSWORD>@<URL_HOST_BD>:<PUERTO_BD>/<NOMBRE_BD>
 
-
 const CADENA_CONEXION = /*process.env.DATABASE_URL ||*/
-  "postgres://postgres:postgres@localhost:5432/postgres"
+  `postgres://${process.env.DB_USER}:${process.env.DB_PASSWORD}
+  @${process.env.DB_HOST}:${process.env.PORT}/${process.env.DB_NAME}`
 
 const sequelize = new Sequelize(CADENA_CONEXION)
 
