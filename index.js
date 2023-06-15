@@ -1,10 +1,11 @@
+"use strict";
 const express = require("express")
 const bodyParser = require("body-parser")
 const cors = require("cors")
 
 //const data = require("./test_data") // importamos data de test
 const { turista, guia, servicio, reserva } = require("./dao")
-const { invUser } = require("./util").default
+const invUser = require("./util")
 
 /*const PUERTO = process.env.PORT || 4445*/
 const PUERTO = 4447
@@ -17,6 +18,12 @@ app.use(bodyParser.urlencoded({
 app.use(cors()) // politica CORS (cualquier origen) <---- TODO: cuidado!!!
 app.use(express.static("assets")) // <-- configuracion de contenido estatico
 
+async function getUserTest(id) {
+  const rest = await fetch(`https://reqres.in/api/users/${id}`)
+  const data = await rest.json()
+
+  return data.data
+}
 
 async function getUser(userType, id, correo, contrasenia, resp) {
   if (id == undefined || id == "-1") {
@@ -58,7 +65,15 @@ async function getUser(userType, id, correo, contrasenia, resp) {
     resp.send(usuarioFiltrados)
   }
 
-  // return console.log("Happy Easter")
+  return console.log("Happy Easter")
+}
+
+async function getUserById(userType, id, resp){
+  const user = await userType.findAll({
+    where : { id:id}
+  })
+
+  resp.send(user)
 }
 
 app.post("/turista", async (req, resp) => {

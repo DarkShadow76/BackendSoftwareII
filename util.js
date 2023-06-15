@@ -1,3 +1,10 @@
-const invUser = [{"id":`${null}`,"nombre":`${null}`,"apellido":`${null}`,"correo":`${null}`,"contrasenia":`${null}`,"telefono":`${null}`}]
+const invUser = [{
+    "id": null,
+    "nombre": null,
+    "apellido": null,
+    "correo": null,
+    "contrasenia": null,
+    "telefono": null
+}]
 
-export default {invUser}
+module.exports = invUser;
