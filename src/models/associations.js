@@ -1,7 +1,7 @@
-import usuario from "./usuario.model";
+import usuario from "./model.usuario";
 //import guia from "./guia.model";
-import servicio from "./servicio.model";
-import reserva from "./reserva.model";
+import servicio from "./model.servicio";
+import reserva from "./model.reserva";
 
 
 usuario.hasMany(reserva, { foreignKey: 'id_usuario' });

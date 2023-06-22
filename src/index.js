@@ -3,8 +3,8 @@ const bodyParser = require("body-parser")
 const cors = require("cors")
 
 //const data = require("./test_data") // importamos data de test
-const { turista, guia, servicio, reserva } = require("./dao")
-const { invUser } = require("./util").default
+//const { turista, guia, servicio, reserva } = require("./dao")
+//const { invUser } = require("./util").default
 
 /*const PUERTO = process.env.PORT || 4445*/
 const PUERTO = 4447
@@ -14,10 +14,11 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({
   extended: true
 }))
+
 app.use(cors()) // politica CORS (cualquier origen) <---- TODO: cuidado!!!
 app.use(express.static("assets")) // <-- configuracion de contenido estatico
 
-
+/**
 async function getUser(userType, id, correo, contrasenia, resp) {
   if (id == undefined || id == "-1") {
     if ((correo == undefined || correo == "-1") &&
@@ -162,6 +163,7 @@ app.get("/reserva", async (req, resp) => {
   const listaReserv = await reserva.findAll()
   resp.send(listaReserv)
 })
+**/
 
 app.listen(PUERTO, () => {
   console.log(`Servidor web iniciado en puerto ${PUERTO}`)
