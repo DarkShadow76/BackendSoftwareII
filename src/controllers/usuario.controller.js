@@ -1,4 +1,4 @@
-import repositoryUsuario from "../repository/repository.usuario";
+const { repositoryUsuario } = require ('../repository/repository.usuario');
 
 const create = async (req, res) => {
   const result = await repositoryUsuario.create(req.body);
@@ -42,6 +42,6 @@ const sendResponse = (result, res) => {
   })
 }
 
-const controllerUsuario = { create, findAll, findOne, update, remove }
+const controllerUsuario = { create, findAll, findOne, update, remove };
 
-export default controllerUsuario;
+module.exports = controllerUsuario;

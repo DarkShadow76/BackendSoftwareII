@@ -9,14 +9,19 @@ const cors = require("cors")
 /*const PUERTO = process.env.PORT || 4445*/
 const PUERTO = 4447
 
+// Middlewares
 const app = express()
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({
-  extended: true
+  extended: false
 }))
 
-app.use(cors()) // politica CORS (cualquier origen) <---- TODO: cuidado!!!
-app.use(express.static("assets")) // <-- configuracion de contenido estatico
+app.use(cors()); // politica CORS (cualquier origen) <---- TODO: cuidado!!!
+app.use(express.static("assets")); // <-- configuracion de contenido estatico
+
+
+// Routes
+app.use(require('./routes/index'));
 
 /**
 async function getUser(userType, id, correo, contrasenia, resp) {
@@ -167,4 +172,4 @@ app.get("/reserva", async (req, resp) => {
 
 app.listen(PUERTO, () => {
   console.log(`Servidor web iniciado en puerto ${PUERTO}`)
-})
+});

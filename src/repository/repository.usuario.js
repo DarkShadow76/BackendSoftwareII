@@ -1,4 +1,4 @@
-import usuario from "../models/model.usuario";
+const{ usuario } = require('../models/model.usuario')
 
 const create = async (usuario) => {
   console.log("create usuario")
@@ -77,4 +77,4 @@ const remove = async (id_usuario) => {
 
 const repositoryUsuario = { create, findAll, findOne, update, remove}
 
-export default repositoryUsuario;
+module.exports = repositoryUsuario;

@@ -1,7 +1,7 @@
-import { Model, DataTypes, STRING } from "sequelize";
-import { sequelize } from "../database/database";
+const { Model, DataTypes, STRING } = require('sequelize');
+const { sequelize } =  require('../database/database');
 
-export class usuario extends Model { }
+class usuario extends Model { }
 
 usuario.init(
   {
@@ -44,4 +44,4 @@ usuario.init(
   }
 );
 
-export default usuario;
+module.exports = usuario;
