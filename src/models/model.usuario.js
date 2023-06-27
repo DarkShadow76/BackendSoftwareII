@@ -1,19 +1,20 @@
-const { Model, DataTypes, STRING } = require('sequelize');
-const { sequelize } =  require('../database/database');
+const { Model, DataTypes, Sequelize } = require("sequelize");
+const { sequelize } =  require("../database/database");
 
-class usuario extends Model { }
+//sequelize.define()
 
-usuario.init(
-  {
+//class usuario extends Model { }
+
+const usuario = sequelize.define('usuario',{
     id: {
       primaryKey: true,
       type: DataTypes.UUID,
       allowNull: false,
       //autoIncrement: true,
-      defaultValue: sequelize.UUIDV4
+      defaultValue: Sequelize.UUIDV4
     },
     nombre: {
-      type: STRING(100),
+      type: DataTypes.STRING(100),
       allowNull: false
     },
     apellido: {
@@ -35,13 +36,20 @@ usuario.init(
     telefono: {
       type: DataTypes.STRING(20),
       allowNull: false
+    },
+    tipo: {
+      type: DataTypes.ENUM('admin', 'turista', 'guia'),
+      allowNull: false,
+    },
+    id_reserva: {
+      type: DataTypes.UUIDV4,
+      allowNull: true
+    },
+    id_servicio: {
+      type: DataTypes.UUIDV4,
+      allowNull: true
     }
-  },
-  {
-    sequelize,
-    modelName: 'usuario',
-    tableName: 'usuario',
   }
 );
 
-module.exports = usuario;
+module.exports = usuario
