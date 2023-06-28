@@ -1,7 +1,5 @@
-const express = require("express")
-const bodyParser = require("body-parser")
-const cors = require("cors")
-
+import app from "./app.js";
+import "./models/associations.js";
 //const data = require("./test_data") // importamos data de test
 //const { turista, guia, servicio, reserva } = require("./dao")
 //const { invUser } = require("./util").default
@@ -10,11 +8,12 @@ const cors = require("cors")
 const PUERTO = 4447
 
 // Middlewares
-const app = express()
-app.use(bodyParser.json())
+
+/**
+app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
   extended: false
-}))
+}));
 
 app.use(cors()); // politica CORS (cualquier origen) <---- TODO: cuidado!!!
 app.use(express.static("assets")); // <-- configuracion de contenido estatico
@@ -22,7 +21,7 @@ app.use(express.static("assets")); // <-- configuracion de contenido estatico
 
 // Routes
 app.use(require('./routes/index'));
-
+**/
 /**
 async function getUser(userType, id, correo, contrasenia, resp) {
   if (id == undefined || id == "-1") {

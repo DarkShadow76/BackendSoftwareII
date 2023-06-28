@@ -1,5 +1,5 @@
 import { Model, DataTypes } from "sequelize";
-import { sequelize } from "../database/database";
+import { sequelize } from "../database/database.js";
 
 export class servicio extends Model { }
 
@@ -9,7 +9,7 @@ servicio.init(
       primaryKey: true,
       type: DataTypes.UUID,
       allowNull: false,
-      defaultValue: Sequelize.UUIDV4
+      defaultValue: sequelize.UUIDV4
     },
     categoria: {
       type: DataTypes.STRING(100),
