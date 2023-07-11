@@ -1,4 +1,5 @@
 import app from "./app.js";
+import { sequelize } from "./database/database.js";
 import "./models/associations.js";
 //const data = require("./test_data") // importamos data de test
 //const { turista, guia, servicio, reserva } = require("./dao")
@@ -169,6 +170,17 @@ app.get("/reserva", async (req, resp) => {
 })
 **/
 
-app.listen(PUERTO, () => {
-  console.log(`Servidor web iniciado en puerto ${PUERTO}`)
-});
+async function main() {
+  try {
+    await sequelize.authenticate();
+    console.log('Connection has been established successfully.');
+    
+    app.listen(PUERTO, () => {
+      console.log(`Servidor web iniciado en puerto ${PUERTO}`)
+    });
+  } catch (error) {
+    console.error('Unable to connect to the database:', error);
+  }
+}
+
+main();

@@ -1,4 +1,5 @@
 const{ usuario } = require('../models/model.usuario')
+const{ Pool } = require('pg')
 
 const create = async (usuario) => {
   console.log("create usuario")
@@ -31,7 +32,7 @@ const findOne = async (id_usuario) => {
   try {
     return await usuario.findOne({
       where: {
-        id_usuario
+        id: id_usuario
       }
     })
   } catch (error) {

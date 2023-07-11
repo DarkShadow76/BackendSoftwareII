@@ -8,7 +8,8 @@ const create = async (req, res) => {
 
 const findAll = async (req, res) => {
   const usuario = await repositoryUsuario.findAll();
-
+  res.status(200).json(usuario.rows);
+  
   return sendResponse(usuario, res);
 }
 
