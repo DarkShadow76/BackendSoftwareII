@@ -1,6 +1,7 @@
 import app from "./app.js";
 import { sequelize } from "./database/database.js";
 import "./models/associations.js";
+import "./models/model.usuario.js";
 //const data = require("./test_data") // importamos data de test
 //const { turista, guia, servicio, reserva } = require("./dao")
 //const { invUser } = require("./util").default
@@ -172,9 +173,7 @@ app.get("/reserva", async (req, resp) => {
 
 async function main() {
   try {
-    await sequelize.authenticate();
-    console.log('Connection has been established successfully.');
-    
+    await sequelize.sync()
     app.listen(PUERTO, () => {
       console.log(`Servidor web iniciado en puerto ${PUERTO}`)
     });
