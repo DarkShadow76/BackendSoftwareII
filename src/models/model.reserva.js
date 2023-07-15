@@ -20,7 +20,9 @@ export const reserva = sequelize.define({
     type: DataTypes.UUID,
     allowNull: false
   }
-}, {
-  timestamps: true,
-  freezeTableName: true
-})
+},
+  {
+    timestamps: true,
+    freezeTableName: true
+  }
+);

@@ -20,7 +20,9 @@ export const compra = sequelize.define('compra', {
     type: DataTypes.UUID,
     allowNull: false
   }
-}, {
-  timestamps: true,
-  freezeTableName: true
-})
+},
+  {
+    timestamps: true,
+    freezeTableName: true
+  }
+);

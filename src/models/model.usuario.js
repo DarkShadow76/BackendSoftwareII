@@ -53,7 +53,3 @@ export const usuario = sequelize.define('usuario', {
     freezeTableName: true
   }
 );
-
-//export default usuario;
-
-//module.exports = { usuario }

@@ -28,6 +28,9 @@ export const servicio = sequelize.define({
     type: DataTypes.UUID,
     allowNull: false,
   }
-}, {
-
-})
+},
+  {
+    timestamps: true,
+    freezeTableName: true
+  }
+);
