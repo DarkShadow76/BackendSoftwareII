@@ -1,22 +1,26 @@
-import { Model, DataTypes } from "sequelize";
+import { Sequelize, DataTypes } from "sequelize";
 import { sequelize } from "../database/database.js";
 
-export class reserva extends Model { }
-
-reserva.init(
-  {
-    id: {
-      primaryKey: true,
-      type: DataTypes.UUID,
-      allowNull: false,
-      defaultValue: sequelize.UUIDV4
-    }
+export const reserva = sequelize.define({
+  id: {
+    primaryKey: true,
+    type: DataTypes.UUID,
+    allowNull: false,
+    defaultValue: Sequelize.UUIDV4
   },
-  {
-    sequelize,
-    modelName: 'reserva',
-    tableName: 'reserva',
+  nombre: {
+    type: DataTypes.STRING(100),
+    allowNull: false
+  },
+  id_turista: {
+    type: DataTypes.UUID,
+    allowNull: false
+  },
+  id_servicio: {
+    type: DataTypes.UUID,
+    allowNull: false
   }
-);
-
-export default reserva;
+}, {
+  timestamps: true,
+  freezeTableName: true
+})

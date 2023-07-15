@@ -1,33 +1,26 @@
 import { Sequelize, DataTypes } from "sequelize";
 import { sequelize } from "../database/database.js";
 
-export const servicio = sequelize.define({
+export const compra = sequelize.define('compra', {
   id: {
     primaryKey: true,
     type: DataTypes.UUID,
     allowNull: false,
     defaultValue: Sequelize.UUIDV4
   },
-  monto: {
+  total: {
     type: DataTypes.DOUBLE,
-    allowNull: false,
+    allowNull: true
   },
-  categoria: {
-    type: DataTypes.STRING(100),
-    allowNull: false
-  },
-  puntaje: {
-    type: DataTypes.DOUBLE,
-    allowNull: false
-  },
-  estado: {
-    type: DataTypes.STRING(100),
-    allowNull: false
-  },
-  id_guia: {
+  id_servicio: {
     type: DataTypes.UUID,
-    allowNull: false,
+    allowNull: false
+  },
+  id_turista: {
+    type: DataTypes.UUID,
+    allowNull: false
   }
 }, {
-
+  timestamps: true,
+  freezeTableName: true
 })
