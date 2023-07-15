@@ -1,4 +1,4 @@
-const{ usuario } = require('../models/model.usuario')
+const{ usuario } = require('../models/usuario.models')
 const{ Pool } = require('pg')
 
 const create = async (usuario) => {

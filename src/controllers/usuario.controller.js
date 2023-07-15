@@ -1,5 +1,6 @@
-const { repositoryUsuario } = require ('../repository/repository.usuario');
+//const { repositoryUsuario } = require ('../repository/repository.usuario');
 
+/**
 const create = async (req, res) => {
   const result = await repositoryUsuario.create(req.body);
 
@@ -46,3 +47,12 @@ const sendResponse = (result, res) => {
 const controllerUsuario = { create, findAll, findOne, update, remove };
 
 module.exports = controllerUsuario;
+**/
+
+export const getUsuarios = (req, res) => {
+  res.send('getting usuarios')
+}
+
+export const createUsuario = (req, res) => {
+  res.send('create usuarios')
+}

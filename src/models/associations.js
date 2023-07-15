@@ -1,17 +1,40 @@
-import { usuario } from "./model.usuario.js";
-//import guia from "./guia.model";
-import { servicio } from "./model.servicio.js";
-import { reserva } from "./model.reserva.js";
-import { compra } from "./model.compra.js";
+import { usuario } from "./usuario.models.js";
+import { servicio } from "./servicio.models.js";
+import { reserva } from "./reserva.models.js";
+import { compra } from "./compra.models.js";
 
-usuario.hasMany(reserva, { foreignKey: 'id_turista' });
-reserva.belongsTo(usuario, { foreignKey: 'id_turista' });
+usuario.hasMany(reserva, {
+    foreignKey: 'id_turista',
+    sourceKey: 'id'
+});
+reserva.belongsTo(usuario, {
+    foreignKey: 'id_turista',
+    tarjetId: 'id'
+});
 
-servicio.hasMany(reserva, { foreignKey: 'id_servicio' });
-reserva.belongsTo(servicio, { foreignKey: 'id_servicio' });
+servicio.hasMany(reserva, {
+    foreignKey: 'id_servicio',
+    sourceKey: 'id'
+});
+reserva.belongsTo(servicio, {
+    foreignKey: 'id_servicio',
+    tarjetId: 'id'
+});
 
-usuario.hasMany(servicio, { foreignKey: 'id_guia' });
-servicio.belongsTo(usuario, { foreignKey: 'id_guia' });
+usuario.hasMany(servicio, {
+    foreignKey: 'id_guia',
+    sourceKey: 'id'
+});
+servicio.belongsTo(usuario, {
+    foreignKey: 'id_guia',
+    tarjetId: 'id'
+});
 
-compra.belongsTo(usuario,{ foreignKey: 'id_turista' })
-usuario.hasMany(compra,{ foreignKey: 'id_turista' })
+usuario.hasMany(compra, {
+    foreignKey: 'id_turista',
+    sourceKey: 'id'
+});
+compra.belongsTo(usuario, {
+    foreignKey: 'id_turista',
+    tarjetId: 'id'
+});

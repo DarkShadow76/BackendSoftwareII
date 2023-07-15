@@ -1,7 +1,10 @@
 import app from "./app.js";
 import { sequelize } from "./database/database.js";
 import "./models/associations.js";
-import "./models/model.usuario.js";
+import "./models/usuario.models.js";
+import "./models/compra.models.js";
+import "./models/reserva.models.js";
+import "./models/servicio.models.js";
 //const data = require("./test_data") // importamos data de test
 //const { turista, guia, servicio, reserva } = require("./dao")
 //const { invUser } = require("./util").default
@@ -173,7 +176,7 @@ app.get("/reserva", async (req, resp) => {
 
 async function main() {
   try {
-    await sequelize.sync()
+    await sequelize.sync({ force: false })
     app.listen(PUERTO, () => {
       console.log(`Servidor web iniciado en puerto ${PUERTO}`)
     });
