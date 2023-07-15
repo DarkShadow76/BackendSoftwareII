@@ -1,5 +1,5 @@
 //const { repositoryUsuario } = require ('../repository/repository.usuario');
-
+import { usuario } from "../models/usuario.models.js"
 /**
 const create = async (req, res) => {
   const result = await repositoryUsuario.create(req.body);
@@ -53,6 +53,20 @@ export const getUsuarios = (req, res) => {
   res.send('getting usuarios')
 }
 
-export const createUsuario = (req, res) => {
+export const createUsuario = async (req, res) => {
+  const { nombre, apellido, dni, correo, contrasenia, telefono, tipo } = req.body
+
+  const newUsuario = await usuario.create({
+    nombre,
+    apellido,
+    dni,
+    correo,
+    contrasenia,
+    telefono,
+    tipo,
+  })
+
+  console.log(newUsuario)
+
   res.send('create usuarios')
 }

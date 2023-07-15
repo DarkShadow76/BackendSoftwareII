@@ -1,4 +1,4 @@
-import { Sequelize, DataTypes } from "sequelize";
+import { Sequelize, DataTypes } from "sequelize"
 import { sequelize } from "../database/database.js";
 
 export const compra = sequelize.define('compra', {
@@ -22,7 +22,7 @@ export const compra = sequelize.define('compra', {
   }
 },
   {
-    timestamps: true,
+    timestamps: false,
     freezeTableName: true
   }
 );

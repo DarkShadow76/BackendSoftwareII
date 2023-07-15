@@ -49,7 +49,7 @@ export const usuario = sequelize.define('usuario', {
   }
 },
   {
-    timestamps: true,
+    timestamps: false,
     freezeTableName: true
   }
 );

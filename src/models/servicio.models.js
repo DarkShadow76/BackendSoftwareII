@@ -30,7 +30,7 @@ export const servicio = sequelize.define('servicio',{
   }
 },
   {
-    timestamps: true,
+    timestamps: false,
     freezeTableName: true
   }
 );

@@ -1,6 +1,6 @@
 import app from "./app.js";
 import { sequelize } from "./database/database.js";
-import "./models/associations.js";
+import './models/associations.js';
 import "./models/usuario.models.js";
 import "./models/compra.models.js";
 import "./models/reserva.models.js";
@@ -176,7 +176,7 @@ app.get("/reserva", async (req, resp) => {
 
 async function main() {
   try {
-    await sequelize.sync({ force: false })
+    await sequelize.sync()
     app.listen(PUERTO, () => {
       console.log(`Servidor web iniciado en puerto ${PUERTO}`)
     });

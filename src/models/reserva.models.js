@@ -22,7 +22,7 @@ export const reserva = sequelize.define('reserva',{
   }
 },
   {
-    timestamps: true,
+    timestamps: false,
     freezeTableName: true
   }
 );
