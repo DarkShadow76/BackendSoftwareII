@@ -18,7 +18,8 @@ export const usuario = sequelize.define('usuario', {
   },
   dni: {
     type: DataTypes.STRING(10),
-    allowNull: false
+    allowNull: false,
+    defaultValue: "7777777"
   },
   correo: {
     type: DataTypes.STRING(100),
