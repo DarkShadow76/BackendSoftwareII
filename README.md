@@ -7,7 +7,6 @@ Grupo:
 - Jean Pieer Del Pozo (Jefe Frontend)
 - Anthony Canon (Scrum Master)
 - Angel Ferroa
-- Franco Oshiro
 
 
 ## Instalacion
