@@ -105,29 +105,26 @@ export const deleteUsuario = async (req, res) => {
 };
 
 async function getUser(correo, contrasenia, resp) {
-  try {
-    const number = await usuario.count({
+  const number = await usuario.count({
+    where: {
+      correo,
+      contrasenia,
+    }
+  })
+  if (number = 0) {
+    //var prob = JSON.parse("-1")
+    console.log("No existe tal usuario el tabla")
+    resp.send(invUser)
+  } else {
+    const Usuario = await usuario.findAll({
       where: {
-        correo,
-        contrasenia,
+        correo: correo,
+        contrasenia: contrasenia
       }
     })
-    if (number < 1) {
-      //var prob = JSON.parse("-1")
-      console.log("No existe tal usuario el tabla")
-      resp.send(invUser)
-    } else {
-      const usuarioFiltrado = await usuario.findAll({
-        where: {
-          correo: correo,
-          contrasenia: contrasenia
-        }
-      })
-    }
-    console.log("Usuario " + number)
-    resp.send(usuarioFiltrado)
-  } catch (error) {
-    //resp.status(404).json({ message: 'Usuario no existe' })
-    resp.send(invUser)
   }
+  //console.log("Usuario " + number)
+  resp.send(Usuario)
+  //resp.status(404).json({ message: 'Usuario no existe' })
+  //resp.send(invUser)
 }
