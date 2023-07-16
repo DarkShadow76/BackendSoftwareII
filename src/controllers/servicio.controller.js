@@ -1,22 +1,28 @@
-//const { repositoryUsuario } = require ('../repository/repository.usuario');
 import { servicio } from "../models/servicio.models.js"
 
 export const getServicios = async (req, res) => {
-  const listaServicios = await servicio.findAll()
-  res.send(listaServicios)
+  try {
+    const listaServicios = await servicio.findAll()
+    res.json(listaServicios)
+  } catch (error) {
+    return res.status(500).json({ message: error.message })
+  }
 }
 
 export const createServicio = async (req, res) => {
   const { id_guia, monto, categoria, puntaje, estado } = req.body
 
-  const newServicio = await servicio.create({
-    id_guia,
-    monto,
-    categoria,
-    puntaje,
-    estado,
-  })
+  try {
+    const newServicio = await servicio.create({
+      id_guia,
+      monto,
+      categoria,
+      puntaje,
+      estado,
+    })
 
-  //console.log(newServicio)
-  res.send('create servicio')
+    res.json(newServicio)
+  } catch (error) {
+    return res.status(500).json({ message: error.message })
+  }
 }

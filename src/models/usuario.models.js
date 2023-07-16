@@ -1,14 +1,11 @@
 import { Sequelize, DataTypes } from "sequelize";
 import { sequelize } from "../database/database.js";
-//const { Sequelize, DataTypes } = require("sequelize");
-//sequelize.define()
 
 export const usuario = sequelize.define('usuario', {
   id: {
     primaryKey: true,
     type: DataTypes.UUID,
     allowNull: false,
-    //autoIncrement: true,
     defaultValue: Sequelize.UUIDV4
   },
   nombre: {

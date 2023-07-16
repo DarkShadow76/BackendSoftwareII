@@ -2,7 +2,7 @@ import express from 'express';
 import usuarioRoutes from './routes/usuario.routes.js';
 import servicioRoutes from './routes/servicio.routes.js';
 import compraRoutes from './routes/compra.routes.js';
-import reservaRoutes from './routes/servicio.routes.js';
+import reservaRoutes from './routes/reserva.routes.js';
 
 const app = express();
 

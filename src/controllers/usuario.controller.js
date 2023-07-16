@@ -1,24 +1,30 @@
-//const { repositoryUsuario } = require ('../repository/repository.usuario');
 import { usuario } from "../models/usuario.models.js"
 
 export const getUsuarios = async (req, res) => {
-  const listaUsuarios = await usuario.findAll()
-  res.send(listaUsuarios)
-}
+  try {
+    const listaUsuarios = await usuario.findAll();
+    res.json(listaUsuarios);
+  } catch (error) {
+    return res.status(500).json({ message: error.message })
+  }
+};
 
 export const createUsuario = async (req, res) => {
   const { nombre, apellido, dni, correo, contrasenia, telefono, tipo } = req.body
 
-  const newUsuario = await usuario.create({
-    nombre,
-    apellido,
-    dni,
-    correo,
-    contrasenia,
-    telefono,
-    tipo,
-  })
+  try {
+    const newUsuario = await usuario.create({
+      nombre,
+      apellido,
+      dni,
+      correo,
+      contrasenia,
+      telefono,
+      tipo,
+    })
 
-  //console.log(newUsuario)
-  res.send('create usuarios')
+    res.json(newUsuario)
+  } catch (error) {
+    return res.status(500).json({ message: error.message })
+  }
 }
