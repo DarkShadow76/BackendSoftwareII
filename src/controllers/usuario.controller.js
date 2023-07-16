@@ -1,4 +1,5 @@
 import { where } from "sequelize";
+import { invUser } from "../util.js";
 import { usuario } from "../models/usuario.models.js"
 
 export const getUsuario = async (req, res) => {
@@ -10,7 +11,7 @@ export const getUsuario = async (req, res) => {
       }
     })
 
-    if (!Usuario) return res.status(404).json({message: 'Usuario no existe'})
+    if (!Usuario) return res.status(404).json({ message: 'Usuario no existe' })
     res.json(Usuario)
 
   } catch (error) {
@@ -28,20 +29,11 @@ export const getUsuarios = async (req, res) => {
   }
 };
 
-export const getUsuariosByType = async (req, res) => {
-  try {
-    const { tipo } = req.params
-    const Usuarios = await usuario.findAll({
-      where: {
-        tipo,
-      }
-    })
+export const getUsuariosByType = async (req, resp) => {
+  const correo = req.query.correo
+  const contrasenia = req.query.contrasenia
 
-    res.json(Usuarios)
-
-  } catch (error) {
-    return res.status(500).json({ message: error.message })
-  }
+  getUser(correo, contrasenia, resp);
 };
 
 export const createUsuario = async (req, res) => {
@@ -111,3 +103,31 @@ export const deleteUsuario = async (req, res) => {
     return res.status(500).json({ message: error.message })
   }
 };
+
+async function getUser(correo, contrasenia, resp) {
+  try {
+    const number = await usuario.count({
+      where: {
+        correo,
+        contrasenia,
+      }
+    })
+    if (number < 1) {
+      //var prob = JSON.parse("-1")
+      console.log("No existe tal usuario el tabla")
+      resp.send(invUser)
+    } else {
+      const usuarioFiltrado = await usuario.findAll({
+        where: {
+          correo: correo,
+          contrasenia: contrasenia
+        }
+      })
+    }
+    console.log("Usuario " + number)
+    resp.send(usuarioFiltrado)
+  } catch (error) {
+    //resp.status(404).json({ message: 'Usuario no existe' })
+    resp.send(invUser)
+  }
+}

@@ -14,7 +14,7 @@ const router = Router();
 router.get("/usuarios", getUsuarios);
 router.get("/usuario/:id", getUsuario);
 router.post("/usuario", createUsuario);
-router.get("/usuarios/:tipo", getUsuariosByType);
+router.get("/usuarioOnTable", getUsuariosByType);
 //router.post("/turista", createUsuario);
 //router.post("/guia", createUsuario);
 router.put("/usuario/:id", updateUsuario);
