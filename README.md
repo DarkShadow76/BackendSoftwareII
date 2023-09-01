@@ -3,11 +3,6 @@
 
 Grupo:
 
-- Alonso Caceres (Jefe Backend)
-- Jean Pieer Del Pozo (Jefe Frontend)
-- Anthony Canon (Scrum Master)
-- Angel Ferroa
-- Franco Oshiro
 
 
 ## Instalacion
@@ -29,6 +24,3 @@ Instalar dependencias con npm
   npm install
   npm install cors express sequelize react-router-doom
 ```
-Diagrama de Clases
-
-![img.JPG](img.JPG)
